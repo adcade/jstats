@@ -30,8 +30,8 @@ public class TestStatsdClient {
 
 	@Test
 	public final void testGaugeStringIntString() {
-		statsd.gauge("gauge", 1, "message");
-		String pattern = "gauge:1\\|g\\|\\d+\\|message";
+		statsd.gauge("gauge", 1);
+		String pattern = "gauge:1\\|g\\|\\d+";
 		assertTrue(String.format("pattern: %s but was %s", pattern, statsd.lastMessage()),
 				Pattern.matches(pattern, statsd.lastMessage()));
 	}
@@ -44,8 +44,8 @@ public class TestStatsdClient {
 
 	@Test
 	public final void testTimingStringIntString() {
-		statsd.timing("timer", 1, "message");
-		assertEquals("timer:1|ms||message", statsd.lastMessage());
+		statsd.timing("timer", 1);
+		assertEquals("timer:1|ms", statsd.lastMessage());
 	}
 
 	@Test
@@ -84,22 +84,22 @@ public class TestStatsdClient {
 
 	@Test
 	public final void testUpdateStatsIntStringDoubleStringArray() {
-		statsd.updateStats(1, "hello", 1, "counter1", "counter2");
+		statsd.updateStats(1, 1, "counter1", "counter2");
 		Iterator<String> iter = statsd.iterator();
 		String[] expected = {
-				"counter1:1|c||hello",
-				"counter2:1|c||hello"
+				"counter1:1|c",
+				"counter2:1|c"
 			};
 		assertIterator(expected, iter, true);
 	}
 
 	@Test
 	public final void testUpdateStatsStringIntDoubleString() {
-		statsd.updateStats("counter", 1, 1, "hello1");
-		statsd.updateStats("counter", 1, 0, "hello0");
+		statsd.updateStats("counter", 1, 1);
+		statsd.updateStats("counter", 1, 0);
 		Iterator<String> iter = statsd.iterator();
 		String[] expected = {
-				"counter:1|c||hello1"
+				"counter:1|c"
 			};
 		assertIterator(expected, iter, true);
 	}

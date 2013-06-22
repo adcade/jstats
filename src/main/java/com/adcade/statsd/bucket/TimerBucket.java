@@ -30,16 +30,9 @@ public class TimerBucket implements Bucket{
 	}
 
 	@Override
-	public void infuse(int value, String message){
+	public void infuse(int value){
 		this.sumstat += value;
 		this.count++;
-		if (message != null && !message.equals("")){
-			if (this.message != null){
-				this.message += "|" + message;
-			} else {
-				this.message = message;
-			}
-		}
 	}
 
 }

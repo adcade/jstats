@@ -13,7 +13,7 @@ public class BucketBuffer {
 	}
 
 	synchronized <T extends Bucket> void deposit(
-			Class<T> clazz, String bucketname, int value, String message)
+			Class<T> clazz, String bucketname, int value)
 					throws BucketTypeMismatchException,
 						   InstantiationException,
 						   IllegalAccessException{
@@ -33,7 +33,7 @@ public class BucketBuffer {
 			bucket.setName(bucketname);
 			cellar.put(bucketname, bucket);
 		}
-		bucket.infuse(value, message);
+		bucket.infuse(value);
 	}
 
 	synchronized Map<String, Bucket> withdraw(){

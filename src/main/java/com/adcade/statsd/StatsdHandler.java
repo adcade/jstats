@@ -15,7 +15,7 @@ public class StatsdHandler implements InvocationHandler {
 		if (client == null) {
 			synchronized(StatsdHandler.class){
 				if (client == null){
-					client = new AFService();
+					client = new DefaultService();
 				}
 			}
 		}

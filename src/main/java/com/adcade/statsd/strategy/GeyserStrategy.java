@@ -77,10 +77,9 @@ public final class GeyserStrategy implements Strategy{
 	public <T extends Bucket> boolean send(
 			Class<T> clazz,
 			String bucketname,
-			int value,
-			String message){
+			int value){
 		try {
-			buffer.deposit(clazz, bucketname, value, message);
+			buffer.deposit(clazz, bucketname, value);
 		} catch (BucketTypeMismatchException e) {
 			e.printStackTrace();
 			return false;
