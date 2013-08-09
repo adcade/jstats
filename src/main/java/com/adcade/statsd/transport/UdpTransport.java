@@ -63,7 +63,7 @@ public class UdpTransport implements Transport{
 	 */
 	@Override
 	public final boolean doSend(final String stat) {
-		log.info(String.format("Sending stat: %s", stat));
+//		log.info(String.format("Sending stat: %s", stat));
 		try {
 			final byte[] data = stat.getBytes("utf-8");
 			final ByteBuffer buff = ByteBuffer.wrap(data);
