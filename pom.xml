@@ -8,8 +8,69 @@
     <connection>scm:git:git@github.com:Adcade/jstats.git</connection>
     <url>scm:git:git@github.com:Adcade/jstats.git</url>
     <developerConnection>scm:git:git@github.com:Adcade/jstats.git</developerConnection>
-    <tag>HEAD</tag>
   </scm>
+
+  <repositories>
+    <repository>
+      <id>maven-s3-release-repo</id>
+      <name>S3 Release Repository</name>
+      <url>s3://maven-adcade/release</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <repository>
+      <id>maven-s3-snapshot-repo</id>
+      <name>S3 Snapshot Repository</name>
+      <url>s3://maven-adcade/snapshot</url>
+      <releases>
+        <enabled>false</enabled>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+      </snapshots>
+    </repository>
+  </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>maven-s3-release-repo</id>
+      <name>S3 Release Repository</name>
+      <url>s3://maven-adcade/release</url>
+      <releases>
+        <enabled>true</enabled>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+   </pluginRepository>
+   <pluginRepository>
+     <id>maven-s3-snapshot-repo</id>
+     <name>S3 Snapshot Repository</name>
+     <url>s3://maven-adcade/snapshot</url>  
+     <releases>
+       <enabled>false</enabled>
+     </releases>
+     <snapshots>
+       <enabled>true</enabled>
+     </snapshots>
+   </pluginRepository>
+  </pluginRepositories>
+  <distributionManagement>
+    <repository>
+      <id>s3-release</id>
+      <name>S3 Release Repository</name>
+      <url>s3://maven-adcade/release</url>
+    </repository>
+    <snapshotRepository>
+      <id>s3-snapshot</id>
+      <name>S3 Snapshot Repository</name>
+      <url>s3://maven-adcade/snapshot</url>
+    </snapshotRepository>
+  </distributionManagement>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
@@ -36,6 +97,14 @@
 
   <build>
     <defaultGoal>install</defaultGoal>
+    <extensions>
+      <extension>
+        <groupId>org.springframework.build</groupId>
+        <artifactId>aws-maven</artifactId>
+        <version>4.4.0.RELEASE</version>
+      </extension>
+    </extensions>
+
     <pluginManagement>
       <plugins>
         <plugin>
