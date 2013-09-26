@@ -1,7 +1,7 @@
 package com.adcade.statsd;
 
 /**
- * Interface for Java Statsd Client with AppFirst Extension.
+ * Interface for Java Statsd Client.
  * 
  * @author Yangming Huang
  */

@@ -1,13 +1,11 @@
-package com.adcade.statsd.transport;
+package com.adcade.statsd;
 
 import java.util.Iterator;
 import java.util.Stack;
 
-import com.adcade.statsd.DefaultService;
-import com.adcade.statsd.StatsdService;
 import com.adcade.statsd.transport.Transport;
 
-public class MockService extends DefaultService implements StatsdService, Iterable<String>{
+public class StatsdIterable extends DefaultService implements StatsdService, Iterable<String>{
 	private Stack<String> output = new Stack<String>();
 
 	@Override

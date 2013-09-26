@@ -9,15 +9,15 @@ import java.util.regex.Pattern;
 
 import org.junit.Test;
 
-import com.adcade.statsd.transport.MockService;
+import com.adcade.statsd.StatsdIterable;
 
 public class TestStatsdClient {
 
-	private MockService statsd;
+	private StatsdIterable statsd;
 
 	@org.junit.Before
 	public final void setUp(){
-		 statsd = new MockService();
+		 statsd = new StatsdIterable();
 	}
 
 	@Test

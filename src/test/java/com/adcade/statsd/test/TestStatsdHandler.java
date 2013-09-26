@@ -7,9 +7,9 @@ import java.util.Iterator;
 import org.junit.Test;
 
 import com.adcade.statsd.StatsdHandler;
+import com.adcade.statsd.StatsdIterable;
 import com.adcade.statsd.annotation.Counting;
 import com.adcade.statsd.annotation.Timing;
-import com.adcade.statsd.transport.MockService;
 
 public class TestStatsdHandler {
 
@@ -19,7 +19,7 @@ public class TestStatsdHandler {
 
 	@Test
 	public final void testStatsdHandler() throws UnknownHostException, IOException, InterruptedException {
-		MockService service = new MockService();
+		StatsdIterable service = new StatsdIterable();
 		StatsdHandler.setStatsdClient(service);
 		// implementation of DoSomethinger which annotated with Timing and Counting
 		DoSomethinger dos = new DoSomethinger(){

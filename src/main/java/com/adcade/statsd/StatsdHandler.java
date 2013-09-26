@@ -33,7 +33,7 @@ public class StatsdHandler implements InvocationHandler {
 				new StatsdHandler(object));
 	}
 	
-	public StatsdHandler(Object object){
+	private StatsdHandler(Object object){
 		this.object = object;
 	}
 

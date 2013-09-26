@@ -11,18 +11,18 @@ import java.util.concurrent.TimeUnit;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.adcade.statsd.StatsdIterable;
 import com.adcade.statsd.StatsdService;
 import com.adcade.statsd.strategy.Strategy;
 import com.adcade.statsd.strategy.StrategyFactory;
-import com.adcade.statsd.transport.MockService;
 
 public class TestStrategies {
 	
-	private MockService service = null;
+	private StatsdIterable service = null;
 			
 	@Before
 	public final void setUp(){
-		this.service = new MockService();
+		this.service = new StatsdIterable();
 	}
 
 	@Test
