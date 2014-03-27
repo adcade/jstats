@@ -1,8 +1,4 @@
 package com.adcade.statsd;
-import java.io.IOException;
-import java.net.UnknownHostException;
-import java.util.Random;
-
 import com.adcade.statsd.bucket.CounterBucket;
 import com.adcade.statsd.bucket.GaugeBucket;
 import com.adcade.statsd.bucket.TimerBucket;
@@ -11,18 +7,22 @@ import com.adcade.statsd.strategy.Strategy;
 import com.adcade.statsd.transport.Transport;
 import com.adcade.statsd.transport.UdpTransport;
 
+import java.io.IOException;
+import java.net.UnknownHostException;
+import java.util.Random;
+
 
 /**
  * The Skeleton class of Java Statsd Client with AppFirst Extension.
  * <br/>
- * Note: For best results, and greater availability, you'll probably want to 
+ * Note: For best results, and greater availability, you'll probably want to
  * create a wrapper class which creates a static client and proxies to it.
  * <br/>
  * You know... the "Java way."
  * <br/>
  * Based on Statsd Client of (C) 2011 Meetup, Inc.
  * by Andrew Gwozdziewycz <andrew@meetup.com>, @apgwoz
- * 
+ *
  * @author Yangming Huang @leonmax
  */
 public class DefaultService implements StatsdService {
@@ -35,7 +35,7 @@ public class DefaultService implements StatsdService {
 	 * @see com.appfirst.statsd.StatsdService#setStrategy(com.appfirst.statsd.strategy.Strategy)
 	 */
 	@Override
-    public StatsdService setStrategy(Strategy strategy){
+    public DefaultService setStrategy(Strategy strategy){
 		this.strategy = strategy;
 		this.strategy.setTransport(this.getTransport());
 		// for chaining purpose
@@ -103,14 +103,14 @@ public class DefaultService implements StatsdService {
 	 * @see com.appfirst.statsd.IStatsdClient#updateStats(java.lang.String, int, double, java.lang.String)
 	 */
 	public boolean updateStats(String bucketname, int value, double sampleRate){
-		if (sampleRate < 1.0 && RNG.nextDouble() > sampleRate) 
+		if (sampleRate < 1.0 && RNG.nextDouble() > sampleRate)
 			return true;
 		value /= sampleRate;
 		return getStrategy().send(CounterBucket.class, bucketname, value);
 	}
-	
+
 	@Override
-    public StatsdService setTransport(Transport transport){
+    public DefaultService setTransport(Transport transport){
 		this.transport = transport;
 		// for chaining purpose
 		return this;

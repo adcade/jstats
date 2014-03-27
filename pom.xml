@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.adcade</groupId>
   <artifactId>jstats</artifactId>
-  <version>0.1.1-SNAPSHOT</version>
+  <version>0.1.1</version>
   <name>JStats</name>
   <scm>
     <connection>scm:git:git@github.com:Adcade/jstats.git</connection>
@@ -50,7 +50,7 @@
    <pluginRepository>
      <id>maven-s3-snapshot-repo</id>
      <name>S3 Snapshot Repository</name>
-     <url>s3://maven-adcade/snapshot</url>  
+     <url>s3://maven-adcade/snapshot</url>
      <releases>
        <enabled>false</enabled>
      </releases>
@@ -93,6 +93,38 @@
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
       <version>1.0.13</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjtools</artifactId>
+      <scope>provided</scope>
+      <version>1.7.4</version>
+    </dependency>
+    <dependency>
+      <groupId>org.aspectj</groupId>
+      <artifactId>aspectjrt</artifactId>
+      <scope>provided</scope>
+      <version>1.7.4</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>4.0.2.RELEASE</version>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-beans</artifactId>
+      <version>4.0.2.RELEASE</version>
+    </dependency>
+
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-test</artifactId>
+      <scope>test</scope>
+      <version>4.0.2.RELEASE</version>
     </dependency>
   </dependencies>
 
