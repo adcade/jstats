@@ -5,7 +5,7 @@ import com.adcade.statsd.transport.Transport;
 
 
 public interface Strategy {
-	void setTransport(Transport transport);
-	<T extends Bucket> boolean send(
-			Class<T> clazz, String bucketname, int value);
+    void setTransport(Transport transport);
+    <T extends Bucket> boolean send(
+            Class<T> clazz, String bucketname, int value);
 }

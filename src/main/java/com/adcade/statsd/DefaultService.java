@@ -26,110 +26,110 @@ import java.util.Random;
  * @author Yangming Huang @leonmax
  */
 public class DefaultService implements StatsdService {
-	protected Strategy strategy = null;
-	protected Transport transport = null;
+    protected Strategy strategy = null;
+    protected Transport transport = null;
 
-	private final static Random RNG = new Random();
+    private final static Random RNG = new Random();
 
-	/* (non-Javadoc)
-	 * @see com.appfirst.statsd.StatsdService#setStrategy(com.appfirst.statsd.strategy.Strategy)
-	 */
-	@Override
+    /* (non-Javadoc)
+     * @see com.appfirst.statsd.StatsdService#setStrategy(com.appfirst.statsd.strategy.Strategy)
+     */
+    @Override
     public DefaultService setStrategy(Strategy strategy){
-		this.strategy = strategy;
-		this.strategy.setTransport(this.getTransport());
-		// for chaining purpose
-		return this;
-	}
+        this.strategy = strategy;
+        this.strategy.setTransport(this.getTransport());
+        // for chaining purpose
+        return this;
+    }
 
-	/* (non-Javadoc)
-	 * @see com.appfirst.statsd.StatsdService#getStrategy()
-	 */
-	@Override
+    /* (non-Javadoc)
+     * @see com.appfirst.statsd.StatsdService#getStrategy()
+     */
+    @Override
     public Strategy getStrategy(){
-		if (strategy == null){
-			this.setStrategy(new InstantStrategy());
-		}
-		return this.strategy;
-	}
+        if (strategy == null){
+            this.setStrategy(new InstantStrategy());
+        }
+        return this.strategy;
+    }
 
-	/* (non-Javadoc)
-	 * @see com.appfirst.statsd.IStatsdClient#gauge(java.lang.String, int)
-	 */
-	public boolean gauge(String bucket, int value) {
-		return getStrategy().send(GaugeBucket.class, bucket, value);
-	}
+    /* (non-Javadoc)
+     * @see com.appfirst.statsd.IStatsdClient#gauge(java.lang.String, int)
+     */
+    public boolean gauge(String bucket, int value) {
+        return getStrategy().send(GaugeBucket.class, bucket, value);
+    }
 
-	/* (non-Javadoc)
-	 * @see com.appfirst.statsd.IStatsdClient#timing(java.lang.String, int)
-	 */
-	public boolean timing(String bucket, int value) {
-		return getStrategy().send(TimerBucket.class, bucket, value);
-	}
+    /* (non-Javadoc)
+     * @see com.appfirst.statsd.IStatsdClient#timing(java.lang.String, int)
+     */
+    public boolean timing(String bucket, int value) {
+        return getStrategy().send(TimerBucket.class, bucket, value);
+    }
 
-	/* (non-Javadoc)
-	 * @see com.appfirst.statsd.IStatsdClient#decrement(java.lang.String)
-	 */
-	public boolean decrement(String... buckets) {
-		return updateStats(-1, 1, buckets);
-	}
+    /* (non-Javadoc)
+     * @see com.appfirst.statsd.IStatsdClient#decrement(java.lang.String)
+     */
+    public boolean decrement(String... buckets) {
+        return updateStats(-1, 1, buckets);
+    }
 
-	/* (non-Javadoc)
-	 * @see com.appfirst.statsd.IStatsdClient#increment(java.lang.String)
-	 */
-	public boolean increment(String... buckets) {
-		return updateStats(1, 1, buckets);
-	}
+    /* (non-Javadoc)
+     * @see com.appfirst.statsd.IStatsdClient#increment(java.lang.String)
+     */
+    public boolean increment(String... buckets) {
+        return updateStats(1, 1, buckets);
+    }
 
-	/* (non-Javadoc)
-	 * @see com.appfirst.statsd.IStatsdClient#updateStats(int, java.lang.String)
-	 */
-	public boolean updateStats(int value, String... buckets){
-		return updateStats(value, 1, buckets);
-	}
+    /* (non-Javadoc)
+     * @see com.appfirst.statsd.IStatsdClient#updateStats(int, java.lang.String)
+     */
+    public boolean updateStats(int value, String... buckets){
+        return updateStats(value, 1, buckets);
+    }
 
-	/* (non-Javadoc)
-	 * @see com.appfirst.statsd.IStatsdClient#updateStats(int, java.lang.String, double, java.lang.String)
-	 */
-	public boolean updateStats(int value, double sampleRate, String... buckets){
-		boolean result = true;
-		for (int i = 0; i < buckets.length; i++) {
-			result = result && this.updateStats(buckets[i], value, sampleRate);
-		}
-		return result;
-	}
+    /* (non-Javadoc)
+     * @see com.appfirst.statsd.IStatsdClient#updateStats(int, java.lang.String, double, java.lang.String)
+     */
+    public boolean updateStats(int value, double sampleRate, String... buckets){
+        boolean result = true;
+        for (int i = 0; i < buckets.length; i++) {
+            result = result && this.updateStats(buckets[i], value, sampleRate);
+        }
+        return result;
+    }
 
-	/* (non-Javadoc)
-	 * @see com.appfirst.statsd.IStatsdClient#updateStats(java.lang.String, int, double, java.lang.String)
-	 */
-	public boolean updateStats(String bucketname, int value, double sampleRate){
-		if (sampleRate < 1.0 && RNG.nextDouble() > sampleRate)
-			return true;
-		value /= sampleRate;
-		return getStrategy().send(CounterBucket.class, bucketname, value);
-	}
+    /* (non-Javadoc)
+     * @see com.appfirst.statsd.IStatsdClient#updateStats(java.lang.String, int, double, java.lang.String)
+     */
+    public boolean updateStats(String bucketname, int value, double sampleRate){
+        if (sampleRate < 1.0 && RNG.nextDouble() > sampleRate)
+            return true;
+        value /= sampleRate;
+        return getStrategy().send(CounterBucket.class, bucketname, value);
+    }
 
-	@Override
+    @Override
     public DefaultService setTransport(Transport transport){
-		this.transport = transport;
-		// for chaining purpose
-		return this;
-	}
+        this.transport = transport;
+        // for chaining purpose
+        return this;
+    }
 
-	/* (non-Javadoc)
-	 * @see com.appfirst.statsd.StatsdService#getTransport()
-	 */
-	@Override
+    /* (non-Javadoc)
+     * @see com.appfirst.statsd.StatsdService#getTransport()
+     */
+    @Override
     public Transport getTransport(){
-		if (transport == null){
-			try {
-				this.transport = new UdpTransport();
-			} catch (UnknownHostException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-		return this.transport;
-	}
+        if (transport == null){
+            try {
+                this.transport = new UdpTransport();
+            } catch (UnknownHostException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return this.transport;
+    }
 }

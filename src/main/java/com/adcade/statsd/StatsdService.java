@@ -5,12 +5,12 @@ import com.adcade.statsd.transport.Transport;
 
 public interface StatsdService extends StatsdClient{
 
-	StatsdService setStrategy(Strategy strategy);
+    StatsdService setStrategy(Strategy strategy);
 
-	Strategy getStrategy();
+    Strategy getStrategy();
 
-	Transport getTransport();
+    Transport getTransport();
 
-	StatsdService setTransport(Transport transport);
+    StatsdService setTransport(Transport transport);
 
 }

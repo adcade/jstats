@@ -9,53 +9,53 @@ import com.adcade.statsd.annotation.Timing;
 
 public class StatsdHandler implements InvocationHandler {
 
-	private static volatile StatsdClient client;
+    private static volatile StatsdClient client;
 
-	private static StatsdClient getClient(){
-		if (client == null) {
-			synchronized(StatsdHandler.class){
-				if (client == null){
-					client = new DefaultService();
-				}
-			}
-		}
-		return client;
-	}
+    private static StatsdClient getClient(){
+        if (client == null) {
+            synchronized(StatsdHandler.class){
+                if (client == null){
+                    client = new DefaultService();
+                }
+            }
+        }
+        return client;
+    }
 
-	public static void setStatsdClient(StatsdClient client){
-		StatsdHandler.client = client;
-	}
+    public static void setStatsdClient(StatsdClient client){
+        StatsdHandler.client = client;
+    }
 
-	public static Object proxy(Object object){
-		return Proxy.newProxyInstance(
-				object.getClass().getClassLoader(), 
-				object.getClass().getInterfaces(),
-				new StatsdHandler(object));
-	}
-	
-	private StatsdHandler(Object object){
-		this.object = object;
-	}
+    public static Object proxy(Object object){
+        return Proxy.newProxyInstance(
+                object.getClass().getClassLoader(),
+                object.getClass().getInterfaces(),
+                new StatsdHandler(object));
+    }
 
-	private Object object;
+    private StatsdHandler(Object object){
+        this.object = object;
+    }
 
-	@Override
-	public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-		Object result = null;
-		Method objectMethod = object.getClass().getMethod(method.getName(), method.getParameterTypes());
-		if (objectMethod.isAnnotationPresent(Timing.class)){
-			Timing timing = objectMethod.getAnnotation(Timing.class);
-			long startTime = System.currentTimeMillis();
-			result = method.invoke(object, args);
-			long endTime = System.currentTimeMillis();
-			getClient().timing(timing.value(), (int) (startTime-endTime));
-		} else {
-			method.invoke(object, args);
-		}
-		if (objectMethod.isAnnotationPresent(Counting.class)){
-			Counting counting = objectMethod.getAnnotation(Counting.class);
-			getClient().increment(counting.value());
-		}
-		return result;
-	}
+    private Object object;
+
+    @Override
+    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+        Object result = null;
+        Method objectMethod = object.getClass().getMethod(method.getName(), method.getParameterTypes());
+        if (objectMethod.isAnnotationPresent(Timing.class)){
+            Timing timing = objectMethod.getAnnotation(Timing.class);
+            long startTime = System.currentTimeMillis();
+            result = method.invoke(object, args);
+            long endTime = System.currentTimeMillis();
+            getClient().timing(timing.value(), (int) (startTime-endTime));
+        } else {
+            method.invoke(object, args);
+        }
+        if (objectMethod.isAnnotationPresent(Counting.class)){
+            Counting counting = objectMethod.getAnnotation(Counting.class);
+            getClient().increment(counting.value());
+        }
+        return result;
+    }
 }
