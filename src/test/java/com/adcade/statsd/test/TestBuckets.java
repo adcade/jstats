@@ -1,14 +1,14 @@
 package com.adcade.statsd.test;
 
-import static org.junit.Assert.*;
-
-import java.util.Date;
-
-import org.junit.Test;
-
 import com.adcade.statsd.bucket.CounterBucket;
 import com.adcade.statsd.bucket.GaugeBucket;
 import com.adcade.statsd.bucket.TimerBucket;
+import org.junit.Test;
+
+import java.util.Date;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class TestBuckets {
 
@@ -56,12 +56,7 @@ public class TestBuckets {
         } catch (InterruptedException e) {
         }
 
-        String expectedhead = "gauge:3|g|";
-        assertTrue("Aggregated stat", actual.startsWith(expectedhead));
-        long timestamp = Long.valueOf(actual.substring(
-                actual.indexOf(expectedhead) + expectedhead.length()));
-        long now = new Date().getTime();
-        assertTrue("Some time before now", timestamp < now);
-        assertTrue("Some time after start", timestamp > beforelast);
+        String expected = "gauge:3|g";
+        assertTrue("Aggregated stat", actual.equals(expected));
     }
 }

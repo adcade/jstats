@@ -1,15 +1,14 @@
 package com.adcade.statsd.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import com.adcade.statsd.StatsdIterable;
+import org.junit.Test;
 
 import java.util.Iterator;
 import java.util.regex.Pattern;
 
-import org.junit.Test;
-
-import com.adcade.statsd.StatsdIterable;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class TestStatsdClient {
 
@@ -23,17 +22,15 @@ public class TestStatsdClient {
     @Test
     public final void testGaugeStringInt() {
         statsd.gauge("gauge", 1);
-        String pattern = "gauge:1\\|g\\|\\d+";
-        assertTrue(String.format("pattern: %s but was %s", pattern, statsd.lastMessage()),
-                Pattern.matches(pattern, statsd.lastMessage()));
+        String expected = "gauge:1|g";
+        assertEquals(expected, statsd.lastMessage() );
     }
 
     @Test
     public final void testGaugeStringIntString() {
         statsd.gauge("gauge", 1);
-        String pattern = "gauge:1\\|g\\|\\d+";
-        assertTrue(String.format("pattern: %s but was %s", pattern, statsd.lastMessage()),
-                Pattern.matches(pattern, statsd.lastMessage()));
+        String expected = "gauge:1|g";
+        assertEquals(expected, statsd.lastMessage() );
     }
 
     @Test

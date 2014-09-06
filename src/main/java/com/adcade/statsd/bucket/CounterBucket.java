@@ -16,7 +16,7 @@ public class CounterBucket implements Bucket{
 
     @Override
     public String toString(){
-        String stat = String.format("%s:%d|c",  name, this.value);
+        String stat = String.format("%s:%d|c", name, this.value);
         return stat;
     }
 

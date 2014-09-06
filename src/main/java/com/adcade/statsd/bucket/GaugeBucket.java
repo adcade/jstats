@@ -22,7 +22,7 @@ public class GaugeBucket implements Bucket {
     public String toString(){
         String stat = null;
         int avg = this.sumstat/this.count;
-        stat = String.format("%s:%d|g|%s",  name, avg, timestamp);
+        stat = String.format("%s:%d|g", name, avg);
         return stat;
     }
 
